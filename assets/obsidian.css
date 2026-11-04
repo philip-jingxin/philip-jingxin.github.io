@@ -68,3 +68,110 @@
     height: auto;
 }
 
+
+/* Compact technical article layout */
+
+/* 1. Body text */
+.post .entry {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.post .entry p,
+.post .entry li {
+    font-size: inherit;
+    line-height: 1.6;
+}
+
+/* Headings */
+.post .entry h1 {
+    font-size: 25px;
+}
+
+.post .entry h2 {
+    font-size: 22px;
+}
+
+.post .entry h3 {
+    font-size: 18px;
+}
+
+.post .entry h4 {
+    font-size: 16px;
+}
+
+/* 2. Mathematical formulas */
+.post .entry mjx-container {
+    font-size: 85% !important;
+}
+
+.post .entry mjx-container[display="true"] {
+    max-width: 100%;
+    margin: 1em 0 !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* 3. Tables fit article width */
+.post .entry table {
+    display: table !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: auto;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 1em 0;
+}
+
+.post .entry th,
+.post .entry td {
+    padding: 5px 7px !important;
+    font-size: inherit;
+    line-height: 1.4;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    vertical-align: top;
+}
+
+.post .entry td code,
+.post .entry th code {
+    font-size: 0.95em;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+}
+
+/* 4. Images fit article and viewport */
+.post .entry img {
+    display: block;
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 70vh !important;
+    object-fit: contain;
+    margin: 1em auto;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+    .post .entry {
+        font-size: 14px;
+    }
+
+    .post .entry h2 {
+        font-size: 20px;
+    }
+
+    .post .entry h3 {
+        font-size: 17px;
+    }
+
+    .post .entry table {
+        font-size: 11px;
+    }
+
+    .post .entry img {
+        max-height: 65vh !important;
+    }
+}
+
