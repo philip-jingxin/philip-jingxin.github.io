@@ -1030,7 +1030,7 @@ Integrating Multi-bit RaBitQ into ClickHouse requires registering the quantizati
 
 Multi-bit RaBitQ is added to the `QuantizationMethod` enum with the identifier `8`. The codec name `multi_bit_rabitq` is mapped to this enum value in `methodToCodec()`.
 
-```C++
+```cpp
 enum class QuantizationMethod : UInt8
 {
     MultiBitRaBitQ = 8,
@@ -1044,7 +1044,7 @@ if (method == "multi_bit_rabitq")
 
 Multi-bit RaBitQ supports bit widths from 2 to 8 bits per dimension. The upper bound is set to 8 bits, at which the original paper reports 99% recall. In benchmarks, 6 bits already provides strong recall across the evaluated datasets.
 
-```C++
+```cpp
 constexpr size_t MULTI_BIT_RABITQ_MIN_BITS = 2;
 constexpr size_t MULTI_BIT_RABITQ_MAX_BITS = 8;
 ```
@@ -1055,7 +1055,7 @@ Also, `validateParams()` is modified to check that the dimensionality is a mult
 
 `bytesPerVector()` calculates the encoded size for each vector. The implementation allocates one bit plane per bit, with a 4-byte correction factor appended:
 
-```C++
+```cpp
 case QuantizationMethod::MultiBitRaBitQ:
     return (dimensions / 8) * bits + sizeof(float);
 ```
@@ -1094,7 +1094,7 @@ Multi-bit RaBitQ encoding is implemented through `VectorQuantizer::createEncode
 
 `createEncoder()` initializes the resources used during encoding.
 
-```C++
+```cpp
 case QuantizationMethod::MultiBitRaBitQ:
 {
     encoder->projection = generateRandomProjection(dimensions);
@@ -1108,7 +1108,7 @@ case QuantizationMethod::MultiBitRaBitQ:
 
 `scale_events` buffers the scale-transition events used by `bestMultiBitRaBitQScale()`. Each event records the scale at which a coordinate advances to its next quantization level, its normalized magnitude, and its current level:
 
-```C++
+```cpp
 struct MultiBitRaBitQScaleEvent
 {
     double scale;
@@ -1138,7 +1138,7 @@ $$
 \mathbf{o}'=\frac{\mathbf{o}'_{\mathrm{raw}}}{r}  
 $$
 
-```C++
+```cpp
 applyRandomProjection(projection, x, dimensions, work);
 
 double norm_sq = 0.0;
@@ -1176,7 +1176,7 @@ L_{\max}
 \right)  
 $$
 
-```C++
+```cpp
 const size_t extra_bits = bits - 1;
 const UInt32 sign_weight = UInt32{1} << extra_bits;
 const UInt32 max_level = sign_weight - 1;
@@ -1209,7 +1209,7 @@ $$
 
 The implementation calculates the normalized magnitude, quantization level, and unsigned code value:
 
-```C++
+```cpp
 double full_code_dot = 0.0;
 
 for (size_t i = 0; i < dimensions; ++i)
@@ -1232,7 +1232,7 @@ $$
 
 where $$(p=0,\ldots,B-1)$$. Each plane occupies $$(D/8)$$ bytes, with coordinate $$(i)$$ stored at byte offset $$(i/8)$$ and bit offset $$(i\bmod 8)$$.
 
-```C++
+```cpp
     for (size_t plane = 0; plane < bits; ++plane)
     {
         const size_t bit_position = bits - 1 - plane;
@@ -1265,7 +1265,7 @@ $$
 
 This is equivalent to the reciprocal of the correction factor defined in Section 4.4, since the normalized quantized vector is obtained by dividing $$(\bar{\mathbf{y}})$$ by its L2 norm. The implementation accumulates the inner product and stores the resulting factor:
 
-```C++
+```cpp
     const double centered_level = static_cast<double>(level) + 0.5;
     full_code_dot += value * (positive ? centered_level : -centered_level);
 }
@@ -1296,7 +1296,7 @@ $$
 
 The search range is determined by the maximum coordinate magnitude and a bit-width-dependent starting ratio:
 
-```C++
+```cpp
 static constexpr double tight_start[] = {0.0, 0.15, 0.20, 0.52, 0.59, 0.71, 0.75, 0.77, 0.81};
 
 const UInt32 max_level = (UInt32{1} << extra_bits) - 1;
@@ -1322,7 +1322,7 @@ $$
 S(t)=\frac{N(t)^2}{Q(t)}  
 $$
 
-```C++
+```cpp
 numerator += magnitude * (static_cast<double>(level) + 0.5);
 denominator_sq += static_cast<double>(level) * (static_cast<double>(level) + 1.0);
 
@@ -1351,7 +1351,7 @@ $$
 
 The next transition for that coordinate is then inserted into the heap if its maximum level has not been reached.
 
-```C++
+```cpp
 const UInt32 new_level = event.level + 1;
 numerator += event.magnitude;
 denominator_sq += 2.0 * (static_cast<double>(event.level) + 1.0);
@@ -1365,7 +1365,7 @@ if (new_level < max_level)
 
 Events sharing the same transition scale are processed together. After each group, the updated objective is evaluated. Since quantization levels remain unchanged between consecutive transition points, the midpoint of the interval is used as the candidate scale.
 
-```C++
+```cpp
 const double score = numerator * numerator / denominator_sq;
 next_scale = events.empty() ? end_scale : std::min(end_scale, events.front().scale);
 
@@ -1386,7 +1386,7 @@ Multi-bit RaBitQ reuses the existing RaBitQ query representation and bit-sliced 
 
 `prepareQuery()` generates the same deterministic random projection used during data encoding, transforms the query, and builds the RaBitQ query representation.
 
-```C++
+```cpp
 case QuantizationMethod::MultiBitRaBitQ:
 {
     query->code_bytes = (dimensions / 8) * bits + sizeof(float);
@@ -1423,7 +1423,7 @@ $$
 
 The quantized query is stored as four bit planes. Its minimum value, quantization step, coordinate sum, and inverse L2 norm are also retained for inner-product estimation.
 
-```C++
+```cpp
 constexpr int levels = (1 << RABITQ_QUERY_BITS) - 1;
 const float range = q_max - q_min;
 out.delta = (range > 0.0f) ? (range / static_cast<float>(levels)) : 0.0f;
@@ -1470,7 +1470,7 @@ $$
 
 `multiBitRaBitQNumerator()` implements this weighted accumulation:
 
-```C++
+```cpp
 float multiBitRaBitQNumerator(const RaBitQQuery & q, size_t bits, const char * code)
 {
     float numerator = 0.0f;
@@ -1528,7 +1528,7 @@ N \cdot
 \right)
 $$
 
-```C++
+```cpp
 float multiBitRaBitQDistance(const RaBitQQuery & q, size_t bits, const char * code)
 {
     const size_t planes_bytes = bits * q.code_bytes;
