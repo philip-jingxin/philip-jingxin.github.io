@@ -302,3 +302,57 @@
     color: #24292f;
 }
 
+
+
+/* BEGIN article code typography fixes */
+
+/* Inline code: Obsidian light style */
+.post .entry :not(pre) > code {
+    color: #24292f !important;
+    background: #f6f6f6 !important;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.95em !important;
+    font-weight: 400 !important;
+    padding: 0.12em 0.3em;
+    border: none !important;
+    border-radius: 4px;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+/* Code blocks: same font size as article body */
+.post .entry pre,
+.post .entry pre code,
+.post .entry .highlight,
+.post .entry .highlight pre,
+.post .entry .highlight code,
+.post .entry .highlighter-rouge,
+.post .entry .highlighter-rouge pre,
+.post .entry .highlighter-rouge code {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+}
+
+/* Rouge syntax tokens inherit the code-block size */
+.post .entry .highlight span {
+    font-size: inherit !important;
+}
+
+/* Keep GitHub Light colors */
+.post .entry pre,
+.post .entry .highlight,
+.post .entry .highlight pre,
+.post .entry .highlight code {
+    color: #24292f;
+    background-color: #f6f8fa !important;
+}
+
+/* Allow paragraphs to wrap */
+.post .entry p,
+.post .entry li {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* END article code typography fixes */

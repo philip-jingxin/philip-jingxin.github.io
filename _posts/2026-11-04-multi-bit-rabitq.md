@@ -1777,7 +1777,7 @@ Across K = 1, 10, and 100, increasing the bit width from 2 to 6 improves recall 
 
 #### 6.2.3 Overall Comparison
 
-The following table provides an overall comparison across all three retrieval cutoffs (K = 1, 10, and 100) and nine datasets. Recall is averaged over all 27 dataset–cutoff combinations for each quantizer. The average latency is calculated by taking the arithmetic mean of p50, p95, and p99 latency across the same 27 combinations. This provides a unified latency indicator for comparing the evaluated configurations.
+The following table provides an overall comparison across all three retrieval cutoffs (K = 1, 10, and 100) and nine datasets. Recall is averaged over all 27 dataset–cutoff combinations for each quantizer. The average latency is calculated by taking the arithmetic mean of p50, p95, and p99 latency across the same 27 combinations. This provides a unified latency indicator for comparing the evaluated configurations.
 
 |Quantizer|Average Recall|Average Latency (ms)|
 |---|---|---|
