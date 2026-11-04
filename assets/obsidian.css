@@ -356,3 +356,23 @@
 }
 
 /* END article code typography fixes */
+
+/* Final code block typography */
+.post .entry pre,
+.post .entry pre code,
+.post .entry .highlight,
+.post .entry .highlight pre,
+.post .entry .highlight code,
+.post .entry .highlighter-rouge,
+.post .entry .highlighter-rouge pre,
+.post .entry .highlighter-rouge code {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+
+/* Ensure Rouge syntax tokens use the same size */
+.post .entry .highlight span,
+.post .entry .highlight code span {
+    font-size: 13px !important;
+}
+
