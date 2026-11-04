@@ -531,3 +531,8 @@
 }
 
 /* END compact site header */
+
+/* Italic site title */
+.wrapper-masthead .site-name {
+    font-style: italic !important;
+}
