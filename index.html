@@ -2,15 +2,122 @@
 layout: default
 ---
 
-<ul class="article-index">
-  {% for post in site.posts %}
-  <li class="article-index-row">
-    <time class="article-index-date" datetime="{{ post.date | date: '%Y-%m-%d' }}">
-      {{ post.date | date: "%b %d, %Y" }}
-    </time>
-    <a class="article-index-title" href="{{ post.url | relative_url }}" title="{{ post.title | escape }}">
-      {{ post.title }}
-    </a>
-  </li>
-  {% endfor %}
-</ul>
+<style>
+/* Research notes homepage */
+
+#main .notes-home {
+    max-width: 900px;
+    margin: 48px auto;
+}
+
+#main .notes-home-list {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+#main .notes-home-item {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    border-top: 1px solid #e5e7eb;
+}
+
+#main .notes-home-item:last-child {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+#main .notes-home-item::before,
+#main .notes-home-item::marker {
+    content: none !important;
+    display: none !important;
+}
+
+#main .notes-home-link {
+    display: grid !important;
+    grid-template-columns: 120px minmax(0, 1fr) 24px;
+    column-gap: 24px;
+    align-items: start;
+    padding: 22px 8px !important;
+    text-decoration: none !important;
+    background: transparent !important;
+}
+
+#main .notes-home-date {
+    color: #8b929b !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.6;
+    white-space: nowrap;
+}
+
+#main .notes-home-title {
+    color: #24292f !important;
+    font-size: 17px !important;
+    font-weight: 500 !important;
+    line-height: 1.5;
+    letter-spacing: normal;
+    overflow-wrap: break-word;
+}
+
+#main .notes-home-arrow {
+    color: #8b929b;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: right;
+}
+
+#main .notes-home-link:hover .notes-home-title {
+    color: #705dc7 !important;
+}
+
+#main .notes-home-link:hover .notes-home-arrow {
+    color: #705dc7;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    #main .notes-home {
+        margin: 24px auto;
+    }
+
+    #main .notes-home-link {
+        grid-template-columns: minmax(0, 1fr) 20px;
+        column-gap: 12px;
+        row-gap: 6px;
+        padding: 16px 0 !important;
+    }
+
+    #main .notes-home-date {
+        grid-column: 1 / -1;
+        font-size: 12px !important;
+    }
+
+    #main .notes-home-title {
+        font-size: 15px !important;
+    }
+
+    #main .notes-home-arrow {
+        grid-column: 2;
+        grid-row: 2;
+    }
+}
+</style>
+
+<div class="notes-home">
+    <ul class="notes-home-list">
+        {% for post in site.posts %}
+        <li class="notes-home-item">
+            <a class="notes-home-link" href="{{ post.url | relative_url }}">
+                <time class="notes-home-date" datetime="{{ post.date | date: '%Y-%m-%d' }}">
+                    {{ post.date | date: "%b %d, %Y" }}
+                </time>
+                <span class="notes-home-title">{{ post.title | escape }}</span>
+                <span class="notes-home-arrow" aria-hidden="true">→</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
