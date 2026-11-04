@@ -1684,7 +1684,7 @@ Each cutoff is benchmarked independently using its corresponding `LIMIT K`. Fiv
 
 The benchmark covers nine datasets, each containing 100,000 vectors. Results are grouped by quantizer and presented separately for each retrieval cutoff. All reported values are medians across the nine datasets. Latency is measured in milliseconds.
 
-The complete benchmark results, including per-dataset measurements and per-query records, are available in the [reproducible benchmark repository](https://github.com/your-account/benchmark-repository).
+The complete benchmark results, including per-dataset measurements and per-query records, are available in the [reproducible benchmark repository](https://github.com/philip-jingxin/clickhouse-vector-quantization-benchmarks?utm_source=multi_bit_rabitq_article).
 
 #### 6.2.1 Existing Quantizers
 
@@ -1800,6 +1800,7 @@ The following table provides an overall comparison across all three re
 |Multi-bit RaBitQ 3-bit|0.8823|43.68|
 |Multi-bit RaBitQ 4-bit|0.9131|47.01|
 |Multi-bit RaBitQ 6-bit|0.9262|54.77|
+
 <img src="{{ '/assets/images/overall_quantizer_recall_vs_latency_linear.png' | relative_url }}" alt="overall_quantizer_recall_vs_latency_linear.png" style="max-width:100%;height:auto;">
 [Figure 8 Overall Quantizer Comparison: Recall vs. Latency in linear time]
 
