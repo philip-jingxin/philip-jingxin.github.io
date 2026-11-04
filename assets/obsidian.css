@@ -1,0 +1,70 @@
+
+/* Obsidian default light theme refinements */
+
+/* Reading width */
+.wrapper-main #main.container {
+    max-width: 900px;
+}
+
+/* Headings */
+.post h1,
+.post h2,
+.post h3,
+.post h4,
+.post h5,
+.post h6 {
+    font-weight: 700;
+    text-align: left !important;
+}
+
+/* Remove heading decorations */
+.post h2::before,
+.post h2::after,
+.post h3::before,
+.post h3::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Mathematical formulas */
+.post .entry mjx-container[display="true"],
+.post .entry .MathJax_Display {
+    margin: 1.5em 0 !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Obsidian-style tables */
+.post .entry table {
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+.post .entry th,
+.post .entry td {
+    border: 1px solid #e0e0e0;
+    padding: 6px 10px;
+    background: #ffffff;
+}
+
+.post .entry tr:nth-child(even),
+.post .entry tr:nth-child(odd) {
+    background: #ffffff;
+}
+
+.post .entry th {
+    font-weight: 700;
+}
+
+/* Paragraph spacing */
+.post .entry p {
+    margin-bottom: 1em;
+    line-height: 1.6;
+}
+
+/* Images */
+.post .entry img {
+    max-width: 100%;
+    height: auto;
+}
+
