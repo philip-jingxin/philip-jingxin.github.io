@@ -376,3 +376,63 @@
     font-size: 13px !important;
 }
 
+
+/* Compact research notes homepage */
+
+.article-index {
+    list-style: none !important;
+    margin: 20px 0 !important;
+    padding: 0 !important;
+}
+
+.article-index-row {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    align-items: center;
+    column-gap: 24px;
+    margin: 0 !important;
+    padding: 14px 0 !important;
+    border-bottom: 1px solid #eeeeee;
+    list-style: none !important;
+}
+
+.article-index-date {
+    color: #8b929b;
+    font-size: 13px !important;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.article-index-title {
+    display: block;
+    min-width: 0;
+    color: #24292f !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    line-height: 1.5;
+    text-decoration: none !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.article-index-title:hover {
+    color: #705dc7 !important;
+    text-decoration: underline !important;
+}
+
+@media (max-width: 640px) {
+    .article-index-row {
+        grid-template-columns: 90px minmax(0, 1fr);
+        column-gap: 12px;
+    }
+
+    .article-index-date {
+        font-size: 12px !important;
+    }
+
+    .article-index-title {
+        font-size: 14px !important;
+    }
+}
+
