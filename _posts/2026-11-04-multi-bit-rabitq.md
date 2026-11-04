@@ -5,7 +5,6 @@ date: 2026-11-04
 permalink: /articles/multi-bit-rabitq.html
 ---
 
-# Multi-bit RaBitQ in ClickHouse: Exploring Vector Quantization, Algorithm Design, and Database Engineering
 
 # 1. Introduction
 
