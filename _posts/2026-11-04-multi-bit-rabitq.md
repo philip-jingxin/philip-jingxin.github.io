@@ -1683,7 +1683,7 @@ Each cutoff is benchmarked independently using its corresponding `LIMIT K`. Fiv
 
 The benchmark covers nine datasets, each containing 100,000 vectors. Results are grouped by quantizer and presented separately for each retrieval cutoff. All reported values are medians across the nine datasets. Latency is measured in milliseconds.
 
-The complete benchmark results, including per-dataset measurements and per-query records, are available in the [reproducible benchmark repository](https://github.com/philip-jingxin/clickhouse-vector-quantization-benchmarks?utm_source=multi_bit_rabitq_article).
+The complete benchmark results, including per-dataset measurements and per-query records, are available in the [reproducible benchmark repository](https://github.com/philip-jingxin/clickhouse-vector-quantization-benchmarks).
 
 #### 6.2.1 Existing Quantizers
 
